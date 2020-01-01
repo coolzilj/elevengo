@@ -1,6 +1,7 @@
 package elevengo
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
 )
@@ -82,7 +83,8 @@ func (c *Client) OfflineAddUrl(url string) (hash string, err error) {
 	err = c.callOfflineApi(apiOfflineAddUrl, form, result)
 	if err == nil {
 		if !result.State {
-			err = apiError(result.ErrorNo)
+			// err = apiError(result.ErrorNo)
+			err = fmt.Errorf("%s", *result.ErrorMessage)
 		} else {
 			hash = result.InfoHash
 		}
